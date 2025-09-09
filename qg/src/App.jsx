@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react"
 import Questions from './components/Questions.jsx'
+import Start from './components/Start.jsx'
 
 function App() {
+
+  //state monitorujący czy gra została rozpoczęta
+
+  const [isGameStarted, setIsGameStarted] = useState(false)
 
   //state trzymający dane dot. pulla z API
 
@@ -34,7 +39,8 @@ function App() {
 
   return (
     <main>
-        <Questions question={questionDb}/>
+      <Start />
+      {isGameStarted &&<Questions question={questionDb}/>}
     </main>
   )
 }
@@ -51,8 +57,8 @@ Przegląd projektu
   5. Stworzyć component "Question" zawierający odpowiedzi na pytanie (ZROBIONE)
   6. Wyświetlić komponent "Questions" na froncie (ZROBIONE)
   7. obsłużyć dekodowanie pytań i odpowiedzi do quizu (ZROBIONE)
-  8. wykonać podstawowe stylowanie
-  9. Utworzyć ekran powitalny
+  8. wykonać podstawowe stylowanie (ZROBIONE)
+  9. Utworzyć ekran powitalny 
   10. Wyświetlać ekran pytań (warunkowo) po naciśnięciu przycisku start na ekranie powitalnym
   11. Zapisać wybraną odpowiedź w osobnej strukturze
   12. Można wybrać tylko jedną odpowiedź
