@@ -12,10 +12,14 @@ function App() {
 
   const [questionDb, setQuestionDb] = useState([])
 
+  //state przetrzymujący odpowiedzi z poszczególnych pytań
+
+  const [myAnswers, setMyAnswers] = useState([])
+
   //useEffect, który wykonuje pull z Api z danymi dot. quizz'a, dodano po drodze funkcję rollAnswers w celu mieszania tablicy z dostępnymi odpowiedziami
 
   useEffect(()=>{
-    fetch('https://opentdb.com/api.php?amount=5&difficulty=easy')
+    fetch('https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple')
       .then(res => res.json())
       .then(data => setQuestionDb(data.results.map(qObj => {
         const allPosAns = rollAnswers([...qObj.incorrect_answers, qObj.correct_answer])
@@ -37,10 +41,24 @@ function App() {
     return copy
   }
 
+  //funckja rozpoczynająca grę
+
+  function startGame(){
+    setIsGameStarted(true)
+  }
+
+  //funkcja zapisująca odpowiedź do tablicy
+
+  function saveAnswer(answer){
+    if(!myAnswers.includes(answer)){
+    setMyAnswers(prevAnswers => [...prevAnswers, answer])
+    }
+  }
+
   return (
     <main>
-      <Start />
-      {isGameStarted &&<Questions question={questionDb}/>}
+      {!isGameStarted && <Start startGame={startGame}/>}
+      {isGameStarted &&<Questions question={questionDb} saveAnswer={saveAnswer} myAnswers={myAnswers}/>}
     </main>
   )
 }
@@ -58,10 +76,13 @@ Przegląd projektu
   6. Wyświetlić komponent "Questions" na froncie (ZROBIONE)
   7. obsłużyć dekodowanie pytań i odpowiedzi do quizu (ZROBIONE)
   8. wykonać podstawowe stylowanie (ZROBIONE)
-  9. Utworzyć ekran powitalny 
-  10. Wyświetlać ekran pytań (warunkowo) po naciśnięciu przycisku start na ekranie powitalnym
-  11. Zapisać wybraną odpowiedź w osobnej strukturze
-  12. Można wybrać tylko jedną odpowiedź
-  13. Wybrana odpowiedź jest odpowiednio stylowana
-  14. Po wybraniu odpowiedzi reszta przycisków jest blokowana
+  9. Utworzyć ekran powitalny (ZROBIONE)
+  10. Wyświetlać ekran pytań (warunkowo) po naciśnięciu przycisku start na ekranie powitalnym (ZROBIONE)
+  11. Zapisać wybraną odpowiedź w osobnej strukturze (ZROBIONE)
+  12. Można wybrać tylko jedną odpowiedź (DO OGARNIĘCIA)
+  13. Wybrana odpowiedź jest odpowiednio stylowana (ZROBIONE)
+  14. Gdy udzielono odpowiedzi na wszystkie pytania w quzie wyświetlamy przycisk sprawdzający odpowiedzi
+  15. Naciśnięcie przycisku uruchamia funkcję sprawdzającą odpowiedzi, funkcja zwraca mój wynik
+  16. Zwracam informację dot. wyniku w formie komunikatu na froncie
+  17. Gdy wynik jest zwrócony to umożliwiam rozpoczęcie nowej gry (odpowiedzi na nowe pytania)
 */

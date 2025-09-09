@@ -1,4 +1,5 @@
 import { decode } from 'html-entities'
+import { clsx } from 'clsx'
 
 export default function Questions(props){
 
@@ -14,9 +15,10 @@ export default function Questions(props){
                 <div className="possible-answers-container">
 
                     {obj.allAnswers.map((ans,index) => {
-                        const decodeAnswers = decode(ans)
+                        const decodedAnswer = decode(ans)
+                        const ansIsChecked = props.myAnswers.includes(ans)
                         return(
-                            <button key={index} className="ans-button">{decodeAnswers}</button>
+                            <button onClick={() => props.saveAnswer(decodedAnswer)} key={index} className={clsx("ans-button", ansIsChecked && 'checked')}>{decodedAnswer}</button>
                         )
                     })}
 

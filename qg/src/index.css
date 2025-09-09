@@ -52,6 +52,10 @@ main {
     opacity: .5;
 }
 
+.ans-button.checked {
+    border: 2px solid green;
+}
+
 .quiz-intro-view {
     display: flex;
     flex-direction: column;
