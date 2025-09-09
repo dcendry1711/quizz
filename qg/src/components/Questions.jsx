@@ -9,7 +9,7 @@ export default function Questions(props){
         return(
             <div key={decodeQuestion} className="single-question">
 
-                <h2>{decodeQuestion}</h2>
+                <h2 className="question-header">{decodeQuestion}</h2>
 
                 <div className="possible-answers-container">
 
