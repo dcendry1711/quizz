@@ -12,9 +12,21 @@ function App() {
 
   const [questionDb, setQuestionDb] = useState([])
 
+  console.log(questionDb)
+
   //state przetrzymujący odpowiedzi z poszczególnych pytań
 
   const [myAnswers, setMyAnswers] = useState([])
+
+  //state monitorujący wyświetlanie wyniku gry
+
+  const [showResult, setShowResult] = useState(false)
+
+  //zmienna licząca poprawne odpowiedzi
+
+  const rightAnswers = questionDb.filter(obj => {
+    return myAnswers.includes(obj.correct_answer)
+  }).length
 
   //useEffect, który wykonuje pull z Api z danymi dot. quizz'a, dodano po drodze funkcję rollAnswers w celu mieszania tablicy z dostępnymi odpowiedziami
 
@@ -55,10 +67,28 @@ function App() {
     }
   }
 
+  //funkcja wyświetlająca wynik 
+
+  function handleResult(){
+    setShowResult(prevShowResult => !prevShowResult)
+  }
+
+  //funkcja rozpoczynająca nową grę
+
+  function handleNewGame(){
+    setIsGameStarted(false)
+    setQuestionDb([])
+    setMyAnswers([])
+    setShowResult(false)
+  }
+
   return (
     <main>
       {!isGameStarted && <Start startGame={startGame}/>}
       {isGameStarted &&<Questions question={questionDb} saveAnswer={saveAnswer} myAnswers={myAnswers}/>}
+      {myAnswers.length === 5 && <button onClick={handleResult} disabled={showResult} className="result-btn">Check your result</button>}
+      {showResult && <p className="result-paragraph">You're result is {rightAnswers}/5</p>}
+      {showResult && <button onClick={handleNewGame} className="new-game-btn">New game</button> }
     </main>
   )
 }
@@ -79,10 +109,14 @@ Przegląd projektu
   9. Utworzyć ekran powitalny (ZROBIONE)
   10. Wyświetlać ekran pytań (warunkowo) po naciśnięciu przycisku start na ekranie powitalnym (ZROBIONE)
   11. Zapisać wybraną odpowiedź w osobnej strukturze (ZROBIONE)
-  12. Można wybrać tylko jedną odpowiedź (DO OGARNIĘCIA)
-  13. Wybrana odpowiedź jest odpowiednio stylowana (ZROBIONE)
-  14. Gdy udzielono odpowiedzi na wszystkie pytania w quzie wyświetlamy przycisk sprawdzający odpowiedzi
-  15. Naciśnięcie przycisku uruchamia funkcję sprawdzającą odpowiedzi, funkcja zwraca mój wynik
-  16. Zwracam informację dot. wyniku w formie komunikatu na froncie
-  17. Gdy wynik jest zwrócony to umożliwiam rozpoczęcie nowej gry (odpowiedzi na nowe pytania)
+  12. Wybrana odpowiedź jest odpowiednio stylowana (ZROBIONE)
+  13. Stworzenie zmiennej liczącej prawidłowe odpowiedzi (ZROBIONE)
+  14. Gdy udzielono odpowiedzi na wszystkie pytania w quzie wyświetlamy przycisk sprawdzający odpowiedzi (ZROBIONE)
+  15. Naciśnięcie przycisku uruchamia funkcję sprawdzającą odpowiedzi, funkcja zwraca mój wynik (ZROBIONE)
+  16. Zwracam informację dot. wyniku w formie komunikatu na froncie (ZROBIONE)
+  17. Gdy wynik jest zwrócony to umożliwiam rozpoczęcie nowej gry (odpowiedzi na nowe pytania) (ZROBIONE)
+  18. Można wybrać tylko jedną odpowiedź (DO OGARNIĘCIA) !!!!!!!
+  19. Gdy mamy podany wynik to zaznaczane są poprawne odpowiedzi (stylowanie kolorami dobre na zielono, a złe na czerwono)
+  20. Zabezpieczenie na oczekiwanie na przetworzenie requesta z API (do zrobienia)
+  21. Refaktor API tak aby dorobić potrzebne komponenty
 */
