@@ -117,8 +117,9 @@ Przegląd projektu
   16. Zwracam informację dot. wyniku w formie komunikatu na froncie (ZROBIONE)
   17. Gdy wynik jest zwrócony to umożliwiam rozpoczęcie nowej gry (odpowiedzi na nowe pytania) (ZROBIONE)
   18. Refaktor API tak aby dorobić potrzebne komponenty (ZROBIONE)
-  19. Można wybrać tylko jedną odpowiedź (DO OGARNIĘCIA) !!!!!!!
-  20. Gdy mamy podany wynik to zaznaczane są poprawne odpowiedzi (stylowanie kolorami dobre na zielono, a złe na czerwono) (ZROBIONE)
-  21. Zabezpieczenie na oczekiwanie na przetworzenie requesta z API (do zrobienia)
+  19. Gdy mamy podany wynik to zaznaczane są poprawne odpowiedzi (stylowanie kolorami dobre na zielono, a złe na czerwono) (ZROBIONE)
+  20. Dodać paragraf, który wyświetli prawidłową odpowiedź pod każdym pytaniem (ZROBIONE)
+  21. Można wybrać tylko jedną odpowiedź (DO OGARNIĘCIA) !!!!!!!
+  22. Zabezpieczenie na oczekiwanie na przetworzenie requesta z API (do zrobienia)
   
 */
