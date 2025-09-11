@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import Questions from './components/Questions.jsx'
 import Start from './components/Start.jsx'
+import ResultBtn from './components/ResultBtn.jsx'
+import Result from './components/Result.jsx'
 
 function App() {
 
@@ -85,10 +87,9 @@ function App() {
   return (
     <main>
       {!isGameStarted && <Start startGame={startGame}/>}
-      {isGameStarted &&<Questions question={questionDb} saveAnswer={saveAnswer} myAnswers={myAnswers}/>}
-      {myAnswers.length === 5 && <button onClick={handleResult} disabled={showResult} className="result-btn">Check your result</button>}
-      {showResult && <p className="result-paragraph">You're result is {rightAnswers}/5</p>}
-      {showResult && <button onClick={handleNewGame} className="new-game-btn">New game</button> }
+      {isGameStarted &&<Questions question={questionDb} saveAnswer={saveAnswer} myAnswers={myAnswers} showResult={showResult}/>}
+      {myAnswers.length === 5 && <ResultBtn handleResult={handleResult} showResult={showResult}/>}
+      {showResult &&  <Result rightAnswers={rightAnswers} handleNewGame={handleNewGame}/>}
     </main>
   )
 }
@@ -115,8 +116,9 @@ Przegląd projektu
   15. Naciśnięcie przycisku uruchamia funkcję sprawdzającą odpowiedzi, funkcja zwraca mój wynik (ZROBIONE)
   16. Zwracam informację dot. wyniku w formie komunikatu na froncie (ZROBIONE)
   17. Gdy wynik jest zwrócony to umożliwiam rozpoczęcie nowej gry (odpowiedzi na nowe pytania) (ZROBIONE)
-  18. Można wybrać tylko jedną odpowiedź (DO OGARNIĘCIA) !!!!!!!
-  19. Gdy mamy podany wynik to zaznaczane są poprawne odpowiedzi (stylowanie kolorami dobre na zielono, a złe na czerwono)
-  20. Zabezpieczenie na oczekiwanie na przetworzenie requesta z API (do zrobienia)
-  21. Refaktor API tak aby dorobić potrzebne komponenty
+  18. Refaktor API tak aby dorobić potrzebne komponenty (ZROBIONE)
+  19. Można wybrać tylko jedną odpowiedź (DO OGARNIĘCIA) !!!!!!!
+  20. Gdy mamy podany wynik to zaznaczane są poprawne odpowiedzi (stylowanie kolorami dobre na zielono, a złe na czerwono) (ZROBIONE)
+  21. Zabezpieczenie na oczekiwanie na przetworzenie requesta z API (do zrobienia)
+  
 */
