@@ -10,6 +10,10 @@ function App() {
 
   const [isGameStarted, setIsGameStarted] = useState(false)
 
+  //state monitorujący czy request jest przetworzony
+
+  const [isLoading, setIsLoading] = useState(false)
+
   //state trzymający dane dot. pulla z API
 
   const [questionDb, setQuestionDb] = useState([])
@@ -33,15 +37,19 @@ function App() {
   //useEffect, który wykonuje pull z Api z danymi dot. quizz'a, dodano po drodze funkcję rollAnswers w celu mieszania tablicy z dostępnymi odpowiedziami
 
   useEffect(()=>{
-    fetch('https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple')
-      .then(res => res.json())
-      .then(data => setQuestionDb(data.results.map(qObj => {
-        const allPosAns = rollAnswers([...qObj.incorrect_answers, qObj.correct_answer])
-        return{
-          ...qObj,
-          allAnswers: allPosAns
+    setIsLoading(true)
+      fetch('https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple')
+        .then(res => res.json())
+        .then(data => 
+          setQuestionDb(data.results.map(qObj => {
+          const allPosAns = rollAnswers([...qObj.incorrect_answers, qObj.correct_answer])
+          return{
+            ...qObj,
+            allAnswers: allPosAns
+          }
         }
-      })))
+      )))
+    setIsLoading(false)
   },[questionDb])
 
   // funkcja mieszająca możliwe odpowiedzi do pytań
@@ -87,7 +95,7 @@ function App() {
   return (
     <main>
       {!isGameStarted && <Start startGame={startGame}/>}
-      {isGameStarted &&<Questions question={questionDb} saveAnswer={saveAnswer} myAnswers={myAnswers} showResult={showResult}/>}
+      {isGameStarted && !isLoading ? <Questions question={questionDb} saveAnswer={saveAnswer} myAnswers={myAnswers} showResult={showResult}/> : null}
       {myAnswers.length === 5 && <ResultBtn handleResult={handleResult} showResult={showResult}/>}
       {showResult &&  <Result rightAnswers={rightAnswers} handleNewGame={handleNewGame}/>}
     </main>
@@ -119,7 +127,7 @@ Przegląd projektu
   18. Refaktor API tak aby dorobić potrzebne komponenty (ZROBIONE)
   19. Gdy mamy podany wynik to zaznaczane są poprawne odpowiedzi (stylowanie kolorami dobre na zielono, a złe na czerwono) (ZROBIONE)
   20. Dodać paragraf, który wyświetli prawidłową odpowiedź pod każdym pytaniem (ZROBIONE)
-  21. Można wybrać tylko jedną odpowiedź (DO OGARNIĘCIA) !!!!!!!
-  22. Zabezpieczenie na oczekiwanie na przetworzenie requesta z API (do zrobienia)
+  21. Zabezpieczenie na oczekiwanie na przetworzenie requesta z API (ZROBIONE) 
+  22. Można wybrać tylko jedną odpowiedź (DO OGARNIĘCIA) !!!!!!!
   
 */
