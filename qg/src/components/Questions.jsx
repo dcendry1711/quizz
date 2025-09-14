@@ -17,13 +17,10 @@ export default function Questions(props){
                     {obj.allAnswers.map((ans,index) => {
 
                         const decodedAnswer = decode(ans)
-
                         const ansIsChecked = props.myAnswers.includes(ans)
-
                         const rightAnswer = ansIsChecked  && obj.correct_answer === ans
                         const wrongAnswer = ansIsChecked  && obj.correct_answer !== ans
-
-
+                        
                         function renderStyle(){
                             if(!props.showResult){
                                 return null
@@ -39,7 +36,14 @@ export default function Questions(props){
                         }
                         
                         return(
-                            <button style={renderStyle()} onClick={() => props.saveAnswer(decodedAnswer)} key={index} className={clsx("ans-button", ansIsChecked && 'checked')}>{decodedAnswer}</button>
+                            <button 
+                                style={renderStyle()} 
+                                onClick={() => props.saveAnswer(decodedAnswer)} 
+                                key={index} 
+                                className={clsx("ans-button", ansIsChecked && 'checked')}
+                                >
+                                    {decodedAnswer}
+                                </button>
                         )
 
                     })}
